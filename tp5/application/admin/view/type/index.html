@@ -1,0 +1,53 @@
+{{extend name="public/contentBase"}}
+{{block name="content"}}
+	<div class="wrap-container clearfix">
+				<div class="column-content-detail">
+					<div class="layui-form" id="table-list">
+						<table class="layui-table" lay-even lay-skin="nob">
+							<colgroup>
+								<col>
+								<col>
+								<col>
+								<col>
+								<col>
+								<col>
+								<col>
+								<col>
+							</colgroup>
+							<thead>
+								<tr>
+									<th>序号</th>
+									<th>分类名称</th>
+									<th>是否上线</th>
+									<th>创建时间</th>
+									<th style="width: 200px;">操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								{{volist name="ts" id="vo"}}
+								<tr>
+									<td>{{$vo.id}}</td>
+									<td>{{:str_repeat('--', $vo.level)}} {{$vo.title}}</td>
+									<td>{{$vo.online}}</td>
+									<td>{{$vo.created_at}}</td>
+									<td style="width: 100px;">
+										<div class="layui-inline">
+											<button class="layui-btn layui-btn-small layui-btn-normal go-btn" data-id="{{$vo.id}}" data-url="{{:url('admin/type/edit')}}">
+												<i title="编辑" class="layui-icon">&#xe642;</i>
+											</button>
+											<button class="layui-btn layui-btn-small layui-btn-danger del-btn" data-id="{{$vo.id}}" data-url="{{:url('admin/type/delete')}}">
+												<i title="删除" class="layui-icon">&#xe640;</i>
+											</button>
+										</div>
+									</td>
+								</tr>
+								{{/volist}}
+							</tbody>
+						</table>
+					</div>
+				</div>
+	</div>
+{{/block}}
+{{block name="js"}}
+{{load file="__STATIC__/admin/js/common.js"}}
+{{/block}}

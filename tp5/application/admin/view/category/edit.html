@@ -1,0 +1,37 @@
+{{extend name="public/contentBase"}}
+{{block name="content"}}
+		<div class="wrap-container clearfix">
+				<form action="{{:url('admin/category/update',['id' => $data.id])}}" method="post" class="layui-form column-content-detail">
+					<div class="layui-tab">
+						<ul class="layui-tab-title">
+							<li class="layui-this">修改文章分类</li>
+						</ul>
+						<div class="layui-tab-content">
+							<div class="layui-tab-item layui-show">
+								<div class="layui-form-item">
+									<label class="layui-form-label">标题：</label>
+									<div class="layui-input-block">
+										<input type="text" name="category_name" required lay-verify="required" placeholder="请输入栏目名称" autocomplete="off" class="layui-input" value="{{$data.category_name}}">
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">排序：</label>
+									<div class="layui-input-block">
+										<input type="text" name="sort_number" required lay-verify="required" placeholder="请输入数字数字越大,越靠前" autocomplete="off" class="layui-input" value="{{$data.sort_number}}">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="layui-form-item" style="padding-left: 10px;">
+						<div class="layui-input-block">
+							<button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo">立即提交</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+				</form>
+		</div>
+{{/block}}
+{{block name="js"}}
+{{load file="__STATIC__/admin/js/common.js"}}
+{{/block}}

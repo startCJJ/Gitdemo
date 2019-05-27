@@ -1,0 +1,71 @@
+{{extend name="public/contentBase"}}
+{{block name="content"}}
+	<div class="wrap-container clearfix">
+				<div class="column-content-detail">
+					<form class="layui-form" action="">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<input type="text" name="adminname" value="{{:input('param.adminname')}}" placeholder="请输入标题" autocomplete="off" class="layui-input">
+							</div>
+							<button class="layui-btn layui-btn-normal" lay-submit="search">搜索</button>
+						</div>
+					</form>
+					<div class="layui-form" id="table-list">
+						<table class="layui-table" lay-even lay-skin="nob">
+							<colgroup>
+								<col>
+								<col>
+								<col>
+								<col>
+								<col>
+								<col>
+							</colgroup>
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>名称</th>
+									<th>昵称</th>
+									<th>权限</th>
+									<th>创建时间</th>
+									<th style="width: 200px;">操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								{{volist name="list" id="vo"}}
+								<tr>
+									<td>{{$vo.id}}</td>
+									<td>{{$vo.adminname}}</td>
+									<td>{{$vo.nick_name}}</td>
+									<td>{{$vo.created_at}}</td>
+									<td>{{$vo.role.role_name}}</td>
+									<td style="width: 100px;">
+										{{if condition="$vo.role_id < 2"}}
+										<div class="layui-inline">
+											<a href="{{:url('admin/admin/upRole',['id' => $vo.id])}}"><span class='layui-btn layui-btn-mini layui-btn-danger'>提高权限</span></a>
+										</div>
+										{{/if}}
+										{{if condition="$vo.role_id > 1 && $vo.role_id < 3"}}
+										<div class="layui-inline">
+											<a href="{{:url('admin/admin/delRole',['id' => $vo.id])}}"><span class='layui-btn layui-btn-mini layui-btn-normal'>降低权限</span></a>
+										</div>
+										{{/if}}
+										{{if condition="$vo.role_id < 3"}}
+										<div class="layui-inline">
+											<button class="layui-btn layui-btn-small layui-btn-danger del-btn" data-id="{{$vo.id}}" data-url="{{:url('admin/admin/delete')}}">
+												<i title="删除" class="layui-icon">&#xe640;</i>
+											</button>
+										</div>
+										{{/if}}
+									</td>
+								</tr>
+								{{/volist}}
+							</tbody>
+						</table>
+						{{$list:render()}}
+					</div>
+				</div>
+	</div>
+{{/block}}
+{{block name="js"}}
+{{load file="__STATIC__/admin/js/common.js"}}
+{{/block}}

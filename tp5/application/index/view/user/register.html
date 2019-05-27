@@ -1,0 +1,65 @@
+{{extend name="public/base"}}
+{{block name="content"}}
+<!-- 查找最顶级栏目  -->
+<section id="caseslist">
+  	<div class="cat_title">
+  	  <div class="wrapper">
+  	    <h2><strong>LOGIN</strong>用户登录</h2>
+  	  </div>
+  	</div>
+    <div>
+      <div class="wrapper" style="height: 600px;margin-left: 35%;">
+        <ul>
+          <form action="{{:url('index/user/doRegister')}}" method="post" style="font-size: 25px;" enctype="multipart/form-data">
+            <li style="height: 80px;">
+              用户名:<input type="text" name="username">
+            </li>
+            <li style="height: 80px;">
+              密&nbsp;&nbsp;&nbsp;码:<input type="password" name="password">
+            </li>
+            <li style="height: 80px;">
+              确认密码:<input type="password" name="repassword" style="width: 255px;">
+            </li>
+            <li style="height: 80px;">
+              用户头像:<input type="file" name="user_photo">
+            </li>
+            <li style="height: 80px;">
+              昵&nbsp;&nbsp;&nbsp;称:<input type="text" name="nick_name">
+            </li>
+            <li style="height: 100px;">
+              <div style="float: left;">
+                验证码:<input type="text" name="captcha">
+              </div>
+              <div style="float: left;">
+                <img src="{{:captcha_src()}}" alt="captcha" id="captcha" width="180px" height="37" />
+              </div>
+            </li>
+            <li style="height: 40px;margin-left: 15%;">
+              <input type="submit" value="注册" style="background-color: #30AD3E;border: 1px solid #30AD3E;color: #fff;width: 60px;height: 40px;">
+            </li>
+          </form>
+        </ul> 
+      </div>
+    </div>
+</section>
+{{/block}}
+
+{{block name="js"}}
+<script type="text/javascript">
+//<![CDATA[
+	//Nav Start
+	$("header>div>nav>ul>li>a").hover(function(){
+		$(this).parent().stop(false,true).animate({"background-position-x":"6px",opacity:"0.7"},{duration:"normal", easing: "easeOutElastic"});
+	},function(){
+		$(this).parent().stop(false,true).animate({"background-position-x":"10px",opacity:"1"},{duration:"normal", easing: "easeOutElastic"});
+	});
+
+	$("#gotop").click(function(){$('body,html').animate({scrollTop:0},500);});
+
+  $('#captcha').click(function(){
+    // 设置属性
+    $(this).attr('src', '{{:captcha_src()}}?rand='+Math.random());
+  });
+
+</script>
+{{/block}}

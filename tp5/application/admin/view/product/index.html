@@ -1,0 +1,89 @@
+{{extend name="public/contentBase"}}
+{{block name="content"}}
+	<div class="wrap-container clearfix">
+				<div class="column-content-detail">
+					<form class="layui-form" action="">
+						<div class="layui-form-item">
+							<div class="layui-inline tool-btn">
+								<button class="layui-btn layui-btn-small layui-btn-normal addBtn" data-url="{{:url('admin/product/create')}}"><i class="layui-icon">&#xe654;</i></button>
+							</div>
+							<div class="layui-inline">
+								<input type="text" name="title" value="{{:input('param.title')}}" placeholder="请输入标题" autocomplete="off" class="layui-input">
+							</div>
+							<div class="layui-inline">
+								<select name="recommend">
+									<option value="">是否推荐</option>
+      								<option value="0" {{if condition="input('param.recommend') === '0'"}}selected{{/if}}>不推荐</option>
+      								<option value="1" {{if condition="input('param.recommend') === '1'"}}selected{{/if}}>推荐</option>
+								</select>
+							</div>
+							<div class="layui-inline">
+								<input type="text" name="minPrice" value="{{:input('param.minPrice')}}" placeholder="最低价格" autocomplete="off" class="layui-input">
+							</div>
+							<div class="layui-inline">
+								<input type="text" name="maxPrice" value="{{:input('param.maxPrice')}}" placeholder="最高价格" autocomplete="off" class="layui-input">
+							</div>
+							
+							<button class="layui-btn layui-btn-normal" lay-submit="search">搜索</button>
+						</div>
+					</form>
+					<div class="layui-form" id="table-list">
+						<table class="layui-table" lay-even lay-skin="nob">
+							<colgroup>
+								<col>
+								<col>
+								<col>
+								<col>
+								<col>
+								<col>
+								<col>
+								<col>
+							</colgroup>
+							<thead>
+								<tr>
+									<td>ID</td>
+									<td>商品名称</td>
+									<td>作者</td>
+									<td>所属分类</td>
+									<td>价格</td>
+									<td>库存</td>
+									<td>是否上线</td>
+									<td>是否推荐</td>
+									<td>创建时间</td>
+									<th style="width: 200px;">操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								{{volist name="list" id="vo"}}
+								<tr>
+									<td>{{$vo.id}}</td>
+									<td>{{$vo.title}}</td>
+									<td>{{$vo.author.adminname}}</td>
+									<td>{{$vo.type.title}}</td>
+									<td>{{$vo.price}}</td>
+									<td>{{$vo.stock}}</td>
+									<td><a href="{{:url('admin/product/isOnline',['id' => $vo.id,'online' => $vo->getData('online')])}}">{{$vo.online}}</a></td>
+									<td>{{$vo.recommend}}</td>
+									<td>{{$vo.created_at}}</td>
+									<td style="width: 100px;">
+										<div class="layui-inline">
+											<button class="layui-btn layui-btn-small layui-btn-normal go-btn" data-id="{{$vo.id}}" data-url="{{:url('index/product/read')}}">
+												<i title="查看" class="layui-icon">&#xe615;</i>
+											</button>
+											<button class="layui-btn layui-btn-small layui-btn-normal go-btn" data-id="{{$vo.id}}" data-url="{{:url('admin/product/edit')}}">
+												<i title="编辑" class="layui-icon">&#xe642;</i>
+											</button>
+										</div>
+									</td>
+								</tr>
+								{{/volist}}
+							</tbody>
+						</table>
+						{{$list:render()}}
+					</div>
+				</div>
+	</div>
+{{/block}}
+{{block name="js"}}
+{{load file="__STATIC__/admin/js/common.js"}}
+{{/block}}

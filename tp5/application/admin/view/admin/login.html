@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>后台登录</title>
+	{{load file="__STATIC__/bootstrap/css/bootstrap.css"}}
+	{{load file="__CSS__/Login.css"}}
+</head>
+<body style="width: 100%;height: 950px;background-color: #989B9E;">
+	<div class="container" style="padding: 100px 0 0 0;margin-left: 35%;">
+
+		<div class="inner_Layer">
+
+			<form action="{{:url('admin/admin/doLogin')}}" method="post" class="form-horizontal">
+
+				<div class="logo">
+					<img src=__STATIC__/images/login.png>
+				</div>
+				<h3 style="color: #fff;">后台管理系统登录</h3>
+	
+				<div class="form-group">
+					<div class="col-md-8" style="margin-left: 17%;">
+						<input type="text" name="adminname" class="form-control" autocomplete="off" placeholder="用户名">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-8" style="margin-left: 17%;">
+						<input type="password" name="password" class="form-control" placeholder="密码">
+					</div>
+				</div>
+				<div class="form-group" style="height: 50px;">
+					<div class="col-md-3" style="margin-left: 17%;">
+						<input type="text" name="captcha" class="form-control" autocomplete="off" placeholder="验证码">
+					</div>
+					<div class="col-md-5" style="height: 100%">
+						<img src="{{:captcha_src()}}" id="captcha" class="form-control" style="width: 100%;height: 100%;padding:0;">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-8 col-md-offset-2" style="text-align: center;">
+						<input type="submit" value="登录" class="btn btn-primary" style="width: 320px;">
+					</div>
+				</div>
+				
+			</form>
+
+		</div>
+	</div>
+
+{{load file="__JS__/jquery-3.3.1.js"}}
+{{load file="__STATIC__/bootstrap/js/bootstrap.js"}}
+{{load file="__STATIC__/jquery-validation/dist/jquery.validate.js"}}
+{{load file="__JS__/login.js"}}
+<script type="text/javascript">
+      // 获取验证码对象
+      var c = document.getElementById('captcha');
+      c.onclick = function(){
+        this.src = "{{:captcha_src()}}?rand="+Math.random();
+      }
+</script>
+</body>
+</html>

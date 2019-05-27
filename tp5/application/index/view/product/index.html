@@ -1,0 +1,97 @@
+{{extend name="public/base"}}
+{{block name="content"}}
+<!-- 查找最顶级栏目  -->
+<section id="caseslist">
+  	<div class="cat_title">
+  	  <div class="wrapper">
+  	    <h2><strong>PEODUCT</strong>企业商品</h2>
+  	  </div>
+  	</div>
+    <div id="filter">
+      <div class="wrapper">
+        <div style="float: right;height: 68px">
+          {{if condition="$Think.session.user"}}
+          <div style="float: left;border: 1px solid #30AD3E;height: 40px;width: 60px;line-height: 40px;text-align: center;margin-top: 10px;background-color: #30AD3E;">
+            <a href="{{:url('index/user/center')}}" style="color: #fff;" title="个人中心">{{$Think.session.user.username}}</a>
+          </div>
+          <div style="float: left;border: 1px solid #8C8480;height: 40px;width: 60px;line-height: 40px;text-align: center;margin-top: 10px;background-color: #8C8480;">
+            <a href="{{:url('index/user/logout')}}" style="color: #fff;">退出登录</a>
+          </div>
+          {{else /}}
+          
+          <div style="float: left;border: 1px solid #30AD3E;height: 40px;width: 60px;line-height: 40px;text-align: center;margin-top: 10px;background-color: #30AD3E;">
+            <a href="{{:url('index/user/login')}}" style="color: #fff;">用户登录</a>
+          </div>           
+          <div style="float: left;border: 1px solid #52BAF3;height: 40px;width: 60px;line-height: 40px;text-align: center;margin-top: 10px;background-color: #52BAF3;">
+            <a href="{{:url('index/user/register')}}" style="color: #fff;">用户注册</a>
+          </div>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+    <div id="filter">
+      <div class="wrapper">
+        <ul>
+          <li>
+              <a href="?tid=">所有商品</a>
+            </li>
+            {{volist name="type" id="vo"}}
+            <li>
+              <a href="?tid={{$vo.id}}">{{$vo.title}}</a>
+            </li>
+            {{/volist}}
+            <li style="margin-right: 50px;width: 200px;">
+            <form>
+              <input type="text" name="title" style="float: left;height: 31px;" value="{{:input('param.title')}}" placeholder="请输入商品名">
+              <button style="float: left;height: 35px;">搜索</button>
+            </form>
+            
+          </li>
+        </ul>
+      </div>
+    </div>
+  	<ul class="cases wrapper">
+  	{{volist name="list" id="vo"}}
+ 		<li class="item1">
+ 			<img src="__STATIC__/upload/{{$vo.image}}" width="240" height="152" alt="$vo.title" />
+ 			<strong>{{:mb_substr($vo.title,0,20)}}{{if condition="mb_strlen($vo.title)>=20"}}...{{/if}}</strong>
+ 			单价:<em style="color: red;">{{$vo.price}}</em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ 			库存:<em style="color: blue;">{{$vo.stock}}</em>
+    		<p>
+    			<strong>{{:mb_substr($vo.title,0,20)}}{{if condition="mb_strlen($vo.title)>=20"}}...{{/if}}</strong>
+    			<em>
+    				分类：{{$vo.type.title}}
+    				<br/>
+        			创建时间:{{$vo.created_at}}
+    			</em>
+    			<br/>
+        		<a href="{{:url('index/product/read',['id' => $vo.id])}}" class="btn_blue">查看商品</a>
+    		</p>
+    	</li>
+    	{{/volist}}
+  	</ul>
+ 	{{$list:render()}}
+  
+</section>
+{{/block}}
+
+{{block name="js"}}
+<script type="text/javascript">
+//<![CDATA[
+	//Nav Start
+	$("header>div>nav>ul>li>a").hover(function(){
+		$(this).parent().stop(false,true).animate({"background-position-x":"6px",opacity:"0.7"},{duration:"normal", easing: "easeOutElastic"});
+	},function(){
+		$(this).parent().stop(false,true).animate({"background-position-x":"10px",opacity:"1"},{duration:"normal", easing: "easeOutElastic"});
+	});
+	
+	$("#caseslist>.cases>li").live({mouseenter:function(){
+		$("p",this).stop(false,true).slideDown("normal","easeOutQuad");
+	},mouseleave:function(){
+		$("p",this).stop(false,true).slideUp("normal","easeOutQuad");
+	}});
+
+	$("#gotop").click(function(){$('body,html').animate({scrollTop:0},500);})
+
+</script>
+{{/block}}

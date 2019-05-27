@@ -1,0 +1,30 @@
+{{extend name="public/base"}}
+{{block name="content"}}
+<!-- 查找最顶级栏目  -->
+<section id="single">
+	<!-- 查找子栏目  -->
+	<div class="cat_title">
+		<div class="wrapper">
+			<h2><strong>SERVICE</strong>服务</h2>
+			<p>我们能做什么？<br/>What can we do?</p>
+		</div>
+	</div>
+	<div class="category">
+		<div class="wrapper">
+			<h1>服务</h1>
+		</div>
+	</div>
+	<article class="serv_detailed">
+		<div id="detailed">
+		这里是总的服务，在后台栏目中修改，修改后更新生成！
+        </div>
+		<div id="case_footer"></div>
+	</article>
+</section>
+
+{{/block}}
+{{block name="js"}}
+<script type="text/javascript">
+	$("#gotop").click(function(){$('body,html').animate({scrollTop:0},500);})
+</script>
+{{/block}}

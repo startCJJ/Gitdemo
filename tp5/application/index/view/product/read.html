@@ -1,0 +1,102 @@
+{{extend name="public/base"}}
+{{block name="content"}}
+<!-- 查找最顶级栏目  -->
+<section id="show_cases">
+	<div class="cat_title">
+		<div class="wrapper">
+			<h2><strong>PEODUCT</strong>企业商品</h2>
+		</div>
+	</div>
+	<article>
+		<div class="wrapper">
+			<div id="overview">
+				<div class="overview_bg"></div>
+				<div id="case_info">
+					<h1><img src="__STATIC__/upload/{{$data.image}}" width="180" height="120" alt="{{$data.title}}"></h1>
+					<ul>
+						<li>名称：<em style="color: green;">{{$data.title}}</em></li>
+						<li>分类：{{$data.type.title}}</li>
+						<li>价格：<em style="color: red;">{{$data.price}}</em></li>
+						<li>库存：<em style="color: blue;">{{$data.stock}}</em></li>
+						<li>数量：<input type="number" id="number" name="num" value="1" min="1"></li>
+					</ul>
+					<div>
+        			  {{if condition="$Think.session.user"}}
+        			  <button id="buyNow" style="width:210px;height:40px;background-color: #4084F2;border: 1px solid #4084F2;color: #fff;">购买商品</button>
+        			  <button id="addCart" style="width:210px;height:40px;background-color: orange;border: 1px solid orange;color: #fff;margin-top: 5px;">加入购物车</button>
+        			  {{else /}}
+        			  <div style="float: left;border: 1px solid #30AD3E;height: 40px;width: 60px;line-height: 40px;text-align: center;margin-top: 10px;background-color: #30AD3E;">
+        			    <a href="{{:url('index/user/login')}}" style="color: #fff;">用户登录</a>
+        			  </div>           
+        			  <div style="float: left;border: 1px solid #52BAF3;height: 40px;width: 60px;line-height: 40px;text-align: center;margin-top: 10px;background-color: #52BAF3;">
+        			    <a href="{{:url('index/user/register')}}" style="color: #fff;">用户注册</a>
+        			  </div>
+        			  {{/if}}
+        			</div>
+					
+				</div>
+			</div>
+			<div id="detailed">
+				{{$data.content}}
+			</div>
+		</div>
+	</article>
+	<div id="case_footer">
+		<div class="wrapper showother">
+			<a class="backlist" href="{{:url('index/product/index')}}">返回商品列表</a>			
+		</div>
+	</div>
+</section>
+{{/block}}
+
+{{block name="js"}}
+<script type="text/javascript">
+//<![CDATA[
+  //Nav Start
+  $("header>div>nav>ul>li>a").hover(function(){
+    $(this).parent().stop(false,true).animate({"background-position-x":"6px",opacity:"0.7"},{duration:"normal", easing: "easeOutElastic"});
+  },function(){
+    $(this).parent().stop(false,true).animate({"background-position-x":"10px",opacity:"1"},{duration:"normal", easing: "easeOutElastic"});
+  });
+  
+  $("#caseslist>.cases>li").live({mouseenter:function(){
+    $("p",this).stop(false,true).slideDown("normal","easeOutQuad");
+  },mouseleave:function(){
+    $("p",this).stop(false,true).slideUp("normal","easeOutQuad");
+  }});
+
+  $("#gotop").click(function(){$('body,html').animate({scrollTop:0},500);})
+</script>
+<script type="text/javascript">
+	$('#number').blur(function(){
+		var num = $('#number').val() >= 1 ? $('#number').val() : 1;
+		num = num <= {{$data.stock}} ? num : {{$data.stock}};
+		$('#number').val(num);
+	});
+</script>
+
+<script type="text/javascript">
+	$('#addCart').click(
+		function(){
+			$.ajax({
+				type: 'get',
+    			url: "{{:url('index/carts/create')}}",
+    			data: {
+    				number: $('#number').val(),
+    				product_id: {{$data.id}}
+    			},
+    			success: function(res){
+    				alert(res);
+    			}
+			});
+		}
+	);
+	$('#buyNow').click(
+		function(){
+			var number = $('#number').val();
+			var product_id = {{$data.id}};
+			window.location.href = "{{:url('index/orders/confirm')}}?nums="+number+'&pids='+product_id + "&mode="+0;
+		}
+	);
+</script>
+{{/block}}

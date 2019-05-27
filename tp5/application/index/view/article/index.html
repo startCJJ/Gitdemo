@@ -1,0 +1,56 @@
+{{extend name="public/base"}}
+{{block name="content"}}
+<section id="newslist">
+  <div class="cat_title">
+    <div class="wrapper">
+      <h2><strong>NEWS</strong>新闻</h2>
+    </div>
+  </div>
+  <div class="category">
+    <div class="wrapper">
+      <ul>
+          <li>
+              <a href="?tid=">所有新闻</a>
+            </li>
+            {{volist name="category" id="vo"}}
+            <li>
+              <a href="?category_id={{$vo.id}}">{{$vo.category_name}}</a>
+            </li>
+            {{/volist}}
+            <li style="margin-right: 50px;width: 200px;">
+            <form>
+              <input type="text" name="subject" style="float: left;height: 31px;" placeholder="请输入新闻名">
+              <button style="float: left;height: 35px;">搜索</button>
+            </form>
+            
+          </li>
+        </ul>
+    </div>
+  </div>
+        <ul class="news wrapper">
+          {{volist name="list" id="vo"}}
+          <li>
+            <a href="{{:url('index/article/read',['id' => $vo.id])}}">
+              <img src="__STATIC__/upload/{{$vo.subject_picture}}" data-original="" alt="{{$vo.subject}}" /></a>
+            <div class="newslist">
+              <a href="{{:url('index/article/read',['id' => $vo.id])}}">{{$vo.subject}}</a>
+              <span>创建时间:{{$vo.created_at}}</span>
+              <p>{{:mb_substr($vo.content,0,50)}}{{if condition="mb_strlen($vo.content)>=50"}}...{{/if}}</p>
+           </div>
+          </li>
+          {{/volist}}
+          </ul>
+  {{$list:render()}}
+</section>
+{{/block}}
+
+{{block name="js"}}
+<script type="text/javascript">
+  $("header>div>nav>ul>li>a").hover(function(){
+    $(this).parent().stop(false,true).animate({"background-position-x":"6px",opacity:"0.7"},{duration:"normal", easing: "easeOutElastic"});
+  },function(){
+    $(this).parent().stop(false,true).animate({"background-position-x":"10px",opacity:"1"},{duration:"normal", easing: "easeOutElastic"});
+  });
+$("#gotop").click(function(){$('body,html').animate({scrollTop:0},500);})
+</script>
+{{/block}}

@@ -1,0 +1,60 @@
+{{extend name="public/contentBase"}}
+{{block name="content"}}
+		<div class="page-content-wrap">
+			<form class="layui-form" method="get">
+				<div class="layui-form-item">
+					<div class="layui-inline tool-btn">
+						<span class="layui-btn layui-btn-small layui-btn-normal addBtn" data-url="{{:url('admin/category/create')}}"><i class="layui-icon">&#xe654;</i></span>
+					</div>
+					<div class="layui-inline">
+						<input type="text" name="category_name" placeholder="请输入标题" value="{{:input('param.category_name')}}" autocomplete="off" class="layui-input">
+					</div>
+					<button class="layui-btn layui-btn-normal" lay-submit="search">搜索</button>
+				</div>
+			</form>
+			</div>
+			<div class="layui-form" id="table-list">
+				<table class="layui-table" lay-even lay-skin="nob">
+					<colgroup>
+						<col>
+						<col>
+						<col>
+						<col>
+						<col>
+					</colgroup>
+					<thead>
+						<tr>
+							<th class="hidden-xs">序号</th>
+							<th class="hidden-xs">排序</th>
+							<th>分类名称</th>
+							<th>创建时间</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						{{volist name="list" id="vo"}}
+						<tr>
+							<td>{{$key + 1}}</td>
+							<td>{{$vo.sort_number}}</td>
+							<td>{{$vo.category_name}}</td>
+							<td>{{$vo.created_at}}</td>
+							<td>
+								<div class="layui-inline">
+									<button class="layui-btn layui-btn-mini layui-btn-normal  go-btn" data-id="{{$vo.id}}" data-url="{{:url('admin/category/edit')}}"><i class="layui-icon">&#xe642;</i></button>
+									<button class="layui-btn layui-btn-mini layui-btn-danger del-btn" data-id="{{$vo.id}}" data-url="{{:url('admin/category/delete')}}"><i class="layui-icon">&#xe640;</i></button>
+								</div>
+							</td>
+						</tr>
+						{{/volist}}
+					</tbody>
+				</table>
+				<div class="page-wrap">
+						{{$list->render()}}
+					</div>
+			</div>
+		</div>
+		
+{{/block}}
+{{block name="js"}}
+{{load file="__STATIC__/admin/js/common.js"}}
+{{/block}}

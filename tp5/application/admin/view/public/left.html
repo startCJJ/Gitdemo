@@ -1,0 +1,50 @@
+      <!--侧边栏-->
+      <div class="main-layout-side">
+        <div class="m-logo">
+        </div>
+        <ul class="layui-nav layui-nav-tree" lay-filter="leftNav">
+          <li class="layui-nav-item">
+            <a href="javascript:;"><i class="iconfont">&#xe608;</i>文章管理</a>
+            <dl class="layui-nav-child">
+              <dd><a href="javascript:;" data-url="{{:url('admin/article/index')}}" data-id='1' data-text="文章管理"><span class="l-line"></span>文章管理</a></dd>
+              <dd><a href="javascript:;" data-url="{{:url('admin/article/create')}}" data-id='2' data-text="发表文章"><span class="l-line"></span>发表文章</a></dd>
+              <dd><a href="javascript:;" data-url="{{:url('admin/category/index')}}" data-id='3' data-text="分类管理"><span class="l-line"></span>分类管理</a></dd>
+              <dd><a href="javascript:;" data-url="{{:url('admin/category/create')}}" data-id='4' data-text="单页管理"><span class="l-line"></span>添加分类</a></dd>
+            </dl>
+          </li>
+          <li class="layui-nav-item">
+            <a href="javascript:;"><i class="iconfont">&#xe604;</i>商品管理</a>
+            <dl class="layui-nav-child">
+              <dd><a href="javascript:;" data-url="{{:url('admin/product/index')}}" data-id='5' data-text="商品列表"><span class="l-line"></span>商品列表</a></dd>
+              <dd><a href="javascript:;" data-url="{{:url('admin/product/create')}}" data-id='6' data-text="添加商品"><span class="l-line"></span>添加商品</a></dd>
+              <dd><a href="javascript:;" data-url="{{:url('admin/type/index')}}" data-id='7' data-text="商品分类列表"><span class="l-line"></span>商品分类列表</a></dd>
+              <dd><a href="javascript:;" data-url="{{:url('admin/type/create')}}" data-id='8' data-text="添加商品分类"><span class="l-line"></span>添加商品分类</a></dd>
+            </dl>
+          </li>
+          {{if condition="$Think.session.admin.role_id >= 2"}}
+          <li class="layui-nav-item">
+            <a href="javascript:;"><i class="iconfont">&#xe606;</i>用户信息</a>
+            <dl class="layui-nav-child">
+              <dd><a href="javascript:;" data-url="{{:url('admin/user/index')}}" data-id='9' data-text="用户列表"><span class="l-line"></span>用户列表</a></dd>
+            </dl>
+          </li>
+          {{if condition="$Think.session.admin.role_id > 2"}}
+          <li class="layui-nav-item">
+            <a href="javascript:;"><i class="iconfont">&#xe606;</i>管理员信息</a>
+            <dl class="layui-nav-child">
+              <dd><a href="javascript:;" data-url="{{:url('admin/admin/index')}}" data-id='10' data-text="管理员列表"><span class="l-line"></span>管理员列表</a></dd>
+              <dd><a href="javascript:;" data-url="{{:url('admin/admin/create')}}" data-id='11' data-text="添加管理员"><span class="l-line"></span>添加管理员</a></dd>
+            </dl>
+          </li>
+          {{/if}}
+          <li class="layui-nav-item">
+            <a href="javascript:;"><i class="iconfont">&#xe60c;</i>订单管理</a>
+            <dl class="layui-nav-child">
+              <dd><a href="javascript:;" data-url="{{:url('admin/orders/index')}}" data-id='12' data-text="订单列表"><span class="l-line"></span>订单列表</a></dd>
+            </dl>
+          </li>
+          {{/if}}
+          
+        </ul>
+      </div>
+      <!--右侧内容-->

@@ -1,0 +1,68 @@
+{{extend name="public/base"}}
+{{block name="content"}}
+<!-- 查找最顶级栏目  -->
+<section id="shownews">
+  <div class="cat_title">
+    <div class="wrapper">
+      <h2><strong>NEWS</strong>新闻</h2>
+    </div>
+  </div>
+  <div class="category">
+    <div class="wrapper">
+      <h1>{{$data.subject}}</h1>
+      <span>创建时间:{{$data.created_at}} | 分类：<a href="{{:url('index/article/index')}}?category_id={{$data.category_id}}">{{$data.category.category_name}}</a></span> </div>
+  </div>
+  <article>
+    <div class="wrapper" id="detailed"> <img alt="" src="__STATIC__/upload/{{$data.subject_picture}}" style="width: 1024px; height: 533px;" /><br />
+<div>
+	{{$data.content}}
+</div>
+ </div>
+    <div class="wrapper related">
+      <h3>
+        <div class="share">
+          <!-- Baidu Button BEGIN -->
+          <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare"> <a class="bds_qzone"></a> <a class="bds_tsina"></a> <a class="bds_tqq"></a> <a class="bds_renren"></a> <a class="bds_t163"></a> <span class="bds_more">更多</span> <a class="shareCount"></a> </div>
+          <script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=0" ></script>
+          <script type="text/javascript" id="bdshell_js"></script>
+          <script type="text/javascript">
+				document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+			</script>
+          <!-- Baidu Button END -->
+        </div>
+      </h3>
+    </div>
+    <div id="case_footer">
+      <div class="wrapper showother"> <a class="backlist" href="{{:url('index/article/index')}}" title="返回新闻列表"></a> </div>
+    </div>
+  </article>
+</section>
+{{/block}}
+
+{{block name="js"}}
+<script type="text/javascript">
+//<![CDATA[
+	//Nav Start
+	$("header>div>nav>ul>li>a").hover(function(){
+		$(this).parent().stop(false,true).animate({"background-position-x":"6px",opacity:"0.7"},{duration:"normal", easing: "easeOutElastic"});
+	},function(){
+		$(this).parent().stop(false,true).animate({"background-position-x":"10px",opacity:"1"},{duration:"normal", easing: "easeOutElastic"});
+	});
+			<!----新闻---->
+	<!---- 详细页 ----->
+		//Show News Start
+		$("#case_footer>.showother>.previous,#case_footer>.showother>.next").hover(function(){
+			$("span>img",this).stop(false,true).animate({"left":"-20px"},{duration:"fast", easing: "easeOutQuad"});
+			$("#show_thumb>img").hide().eq($(this).index($("#case_footer>.showother>.previous,#case_footer>.showother>.next"))).show();
+		},function(){
+			$("span>img",this).stop(false,true).animate({"left":"0"},{duration:"fast", easing: "easeOutQuad"});
+		});
+		//Show News End
+					$("#gotop").click(function(){$('body,html').animate({scrollTop:0},500);})
+	var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+	document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F3fe5b2b119b5fc4931e9c73e7071b0c6' type='text/javascript'%3E%3C/script%3E"));
+	var bds_config = {"bdTop":203};
+	$("#bdshell_js").attr("src","http://share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours());
+//]]>
+</script>
+{{/block}}

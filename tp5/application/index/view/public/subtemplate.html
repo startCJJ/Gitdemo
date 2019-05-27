@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=1024" />
+<meta name="baidu-site-verification" content="3ztG4oI0ku" />
+<title>全能</title>
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+{{load file="__STATIC__/index/css/style.css"}}
+{{load file="__CSS__/bootstrap.css"}}
+</head>
+<body>
+<header>
+  <div id="navbg"></div>
+  <div class="wrapper">
+    <h1 class="logo" style="top:0;">
+      <a href="{{:url('index/index/index')}}"  title="">
+        <img src="__STATIC__/index/images/logo.png" width="180" height="50" alt="" />
+      </a>
+    </h1>
+    <nav>
+      <ul>
+        <li class="home"><a href="{{:url('index/index/index')}}" >首页<span>网站首页！</span></a></li>
+        <li class="about"><a href="{{:url('index/index/about')}}"  title="关于我们">关于<span>我们是谁？</span></a></li>
+        <li class="service"><a href="{{:url('index/index/service')}}"  title="服务">服务<span>我们能做什么？</span></a></li>
+        <li class="cases"><a href="{{:url('index/product/index')}}" title="企业产品">企业产品<span>我们在卖什么？</span></a></li>
+        <li class="client"><a href="{{:url('index/article/index')}}"  title="新闻">新闻<span>了解最新动态!</span></a></li>
+      </ul>
+    </nav>
+    </div>
+</header>
+
+<div class="container" style="margin-top: 150px;min-height: 600px;">
+  <div class="col-md-3">
+    <div class="panel panel-default">
+          <div class="panel-heading">
+              <h3 class="panel-title">用户信息</h3>
+          </div>
+          <div class="panel-body" style="padding: 0;">
+            <ul class="list-group" style="margin: 0;">
+                  <li class="list-group-item">
+                      <a href="{{:url('index/user/center')}}">基本信息</a>
+                  </li>
+                  <li class="list-group-item">
+                      <a href="{{:url('index/userAddress/address')}}">收货地址</a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+      <div class="panel panel-default">
+          <div class="panel-heading">
+              <h3 class="panel-title">订单中心</h3>
+          </div>
+          <div class="panel-body" style="padding: 0;">
+            <ul class="list-group" style="margin: 0;">
+                  <li class="list-group-item">
+                      <a href="{{:url('index/orders/index')}}">订单列表</a>
+                  </li>
+                  <li class="list-group-item">
+                      <a href="{{:url('index/carts/index')}}">购物车</a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </div>
+{{block name="content"}}{{/block}}
+
+
+</div>
+
+{{include file="public/footer"}}
+  
+{{load file="__STATIC__/index/js/jquery.1.8.2.min.js"}}
+{{load file="__STATIC__/index/js/jquery.plugin.min.js"}}
+{{block name="js"}}{{/block}}
+</body>
+</html>

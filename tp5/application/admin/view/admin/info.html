@@ -1,0 +1,46 @@
+{{extend name="public/contentBase"}}
+{{block name="content"}}
+		<div class="layui-tab page-content-wrap">
+		  <ul class="layui-tab-title">
+		    <li class="layui-this">修改密码</li>
+		  </ul>
+		  <div class="layui-tab-content">
+		    <div class="layui-tab-item layui-show">
+		    	<form action="{{:url('admin/admin/doPassword')}}" class="layui-form" style="width: 90%;padding-top: 20px;">
+				  <div class="layui-form-item">
+				    <label class="layui-form-label">用户名：</label>
+				    <div class="layui-input-block">
+				      <input type="text" name="adminname" required lay-verify="required" class="layui-input layui-disabled" value="{{$Think.session.admin.adminname}}">
+				    </div>
+				  </div>
+				  <div class="layui-form-item">
+				    <label class="layui-form-label">旧密码：</label>
+				    <div class="layui-input-block">
+				      <input type="password" name="password1" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+				    </div>
+				  </div>
+				  <div class="layui-form-item">
+				    <label class="layui-form-label">新密码：</label>
+				    <div class="layui-input-block">
+				      <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+				    </div>
+				  </div>
+				  <div class="layui-form-item">
+				    <label class="layui-form-label">重复密码：</label>
+				    <div class="layui-input-block">
+				      <input type="password" name="password2" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+				    </div>
+				  </div>
+				  <div class="layui-form-item">
+				    <div class="layui-input-block">
+				      <button class="layui-btn layui-btn-normal" lay-submit lay-filter="adminPassword">立即提交</button>
+				    </div>
+				  </div>
+				</form>
+		    </div>
+		  </div>
+		</div>
+{{/block}}
+{{block name="js"}}
+{{load file="__STATIC__/admin/js/common.js"}}
+{{/block}}

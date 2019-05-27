@@ -1,0 +1,79 @@
+{{extend name="public/contentBase"}}
+{{block name="content"}}
+	<div class="wrap-container clearfix">
+				<div class="column-content-detail">
+					<form class="layui-form" action="">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<input type="text" name="username" value="{{:input('param.username')}}" placeholder="请输入标题" autocomplete="off" class="layui-input">
+							</div>
+							<button class="layui-btn layui-btn-normal" lay-submit="search">搜索</button>
+						</div>
+					</form>
+					<div class="layui-form" id="table-list">
+						<table class="layui-table" lay-even lay-skin="nob">
+							<colgroup>
+								<col>
+								<col>
+								<col>
+								<col>
+								<col>
+								<col>
+								<col>
+								<col>
+								<col>
+								<col>
+								<col>
+								<col>
+								<col>
+							</colgroup>
+							<thead>
+								<tr>
+									<th>订单号</th>
+									<th>用户名</th>
+									<td>商品名</td>
+									<td>商品价格</td>
+									<td>商品数量</td>
+									<td>总价格</td>
+									<th>已付款金额</th>
+									<th>付款方式</th>
+									<th>付款时间</th>
+									<th>收货地址</th>
+									<th>是否付款</th>
+									<th>订单创建时间</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								{{volist name="list" id="vo"}}
+								<tr>
+									<td>{{$vo.order_sn}}</td>
+									<td>{{$vo.user.username}}</td>
+									<td>{{$vo.product.title}}</td>
+									<td>{{$vo.product_price}}</td>
+									<td>{{$vo.product_number}}</td>
+									<td>{{$vo.order_amount}}</td>
+									<td>{{$vo.pay_amount}}</td>
+									<td>{{if condition="$vo.pay_id == 0"}}<span class='layui-btn layui-btn-mini layui-btn-danger'>未付款</span>{{else /}}{{$vo.pay_id}}{{/if}}</td>
+									<td>{{if condition="$vo.pay_time == 0"}}<span class='layui-btn layui-btn-mini layui-btn-danger'>未付款</span>{{else /}}{{$vo.pay_time}}{{/if}}</td>
+									<td>{{$vo.address_id}}</td>
+									<td>{{$vo.status}}</td>
+									<td>{{$vo.created_at}}</td>
+									<td style="width: 100px;">
+											<button class="layui-btn layui-btn-small layui-btn-danger del-btn" data-id="{{$vo.id}}" data-url="{{:url('admin/orders/delete')}}">
+												<i title="删除" class="layui-icon">&#xe640;</i>
+											</button>
+										</div>
+									</td>
+								</tr>
+								{{/volist}}
+							</tbody>
+						</table>
+						{{$list:render()}}
+					</div>
+				</div>
+	</div>
+{{/block}}
+{{block name="js"}}
+{{load file="__STATIC__/admin/js/common.js"}}
+{{/block}}

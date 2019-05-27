@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=1024" />
+<meta name="baidu-site-verification" content="3ztG4oI0ku" />
+<title>全能</title>
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+{{load file="__STATIC__/index/css/style.css"}}
+{{load file="__CSS__/bootstrap.css"}}
+</head>
+<body>
+<header>
+  <div id="navbg"></div>
+  <div class="wrapper">
+    <h1 class="logo" style="top:0;">
+      <a href="{{:url('index/index/index')}}"  title="">
+        <img src="__STATIC__/index/images/logo.png" width="180" height="50" alt="" />
+      </a>
+    </h1>
+    <nav>
+      <ul>
+        <li class="home"><a href="{{:url('index/index/index')}}" >首页<span>网站首页！</span></a></li>
+        <li class="about"><a href="{{:url('index/index/about')}}"  title="关于我们">关于<span>我们是谁？</span></a></li>
+        <li class="service"><a href="{{:url('index/index/service')}}"  title="服务">服务<span>我们能做什么？</span></a></li>
+        <li class="cases"><a href="{{:url('index/product/index')}}" title="企业产品">企业产品<span>我们在卖什么？</span></a></li>
+        <li class="client"><a href="{{:url('index/article/index')}}"  title="新闻">新闻<span>了解最新动态!</span></a></li>
+      </ul>
+    </nav>
+    </div>
+</header>
+<div class="container" style="margin-top: 150px;min-height: 600px;">
+<div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">收货地址列表</h3>
+        </div>
+        <div class="panel-body" id="address">
+                {{volist name="data" id="vo"}}
+                {{if condition="$vo->getData('status')"}}
+                <input type="hidden" id="address_id" value="{{$vo.id}}">
+                {{/if}}
+                    <span class="form-control btn {{if condition="$vo->getData('status')"}} btn-success {{else /}} btn-default {{/if}}" address-id="{{$vo.id}}" style="margin-top: 5px;">
+                        {{$vo.username}}
+                        {{$vo.province.name}} {{$vo.city.name}} {{$vo.district.name}} {{$vo.address}}
+                        {{$vo.zipcode}}
+                        {{$vo.phone}}
+                    </span>
+                {{/volist}}
+        </div>
+        <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">商品信息</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-bordered table-condensed table-hover">
+                <tr>
+                    <td style="vertical-align: middle;">商品</td>
+                    <td style="vertical-align: middle;">单价</td>
+                    <td style="vertical-align: middle;">数量</td>
+                    <td style="vertical-align: middle;">总价</td>
+                </tr>
+                <input type="hidden" name="" id="{{$count = 0}}">
+                {{volist name="products" id="vo"}}
+                <tr>
+                    <td style="vertical-align: middle;"><a href="{{:url('index/product/read',['id'=>$vo.id])}}"><img src="__STATIC__/upload/{{$vo.image}}" height="50px" width="50px">{{$vo.title}}</a></td>
+                    <td style="vertical-align: middle;">{{$vo.price}}</td>
+                    <td style="vertical-align: middle;"><span id="productNum_{{$vo.id}}">{{$vo.num}}</span></td>
+                    <td style="vertical-align: middle;">
+                        <input type="hidden" name="pids[]" value="{{$vo.id}}">
+                        <span id="productTotal_{{$vo.id}}">{{:round($vo.price * $vo.num,2)}}</span>
+                    </td>
+                </tr>
+                <input type="hidden" name="" id="{{$count += round($vo.price * $vo.num,2)}}">
+                {{/volist}}
+            </table>
+            <span class="text-danger" style="font-size: 30px;font-weight: bold;">
+                订单金额: <span id="orderAmout">{{$count}}</span>元
+            </span>
+
+            <span id="addOrder" class="btn btn-primary btn-lg pull-right">提交订单</span>
+        </div>
+    </div>
+</div>
+</div>
+{{include file="public/footer"}}
+{{load file="__STATIC__/index/js/jquery.1.8.2.min.js"}}
+{{load file="__STATIC__/index/js/jquery.plugin.min.js"}}
+<script type="text/javascript">
+//<![CDATA[
+  //Nav Start
+  $("header>div>nav>ul>li>a").hover(function(){
+    $(this).parent().stop(false,true).animate({"background-position-x":"6px",opacity:"0.7"},{duration:"normal", easing: "easeOutElastic"});
+  },function(){
+    $(this).parent().stop(false,true).animate({"background-position-x":"10px",opacity:"1"},{duration:"normal", easing: "easeOutElastic"});
+  });
+  
+  $("#caseslist>.cases>li").live({mouseenter:function(){
+    $("p",this).stop(false,true).slideDown("normal","easeOutQuad");
+  },mouseleave:function(){
+    $("p",this).stop(false,true).slideUp("normal","easeOutQuad");
+  }});
+
+  $("#gotop").click(function(){$('body,html').animate({scrollTop:0},500);})
+
+</script>
+
+<script type="text/javascript">
+if (window.name != 'noReload') {
+    window.name = 'noReload';
+    location.reload();
+}else{
+    window.name = "";
+}
+
+$('#address').children().click(function(){
+    $(this).removeClass('btn-default').addClass('btn-success').siblings().removeClass('btn-success').addClass('btn-default');
+    $('#address_id').val($(this).attr("address-id"));
+});
+
+$('#addOrder').click(function(){
+
+    var orderAmout = parseFloat($('#orderAmout').text());
+
+    if (orderAmout > 0) {
+        var pids = "";
+        var nums = "";
+        $('[name="pids[]"]').each(function(i,e){
+                pids += $(this).val() + "_";
+                nums += $('#productNum_'+$(this).val()).text() + "_";
+        });
+        var address_id = $('#address_id').val();
+
+        location.href = "{{:url('index/orders/create')}}?pids=" + pids.replace( /_$/ , "") + "&nums=" + nums.replace( /_$/ , "") +"&address_id="+address_id + "&mode="+{{:input('param.mode')}};
+    }else{
+        window.alert('请先选择商品');
+    }
+});
+</script>

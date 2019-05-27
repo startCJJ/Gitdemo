@@ -1,0 +1,244 @@
+{{extend name="public/base"}}
+{{block name="content"}}
+<!-- 查找最顶级栏目  -->
+<section id="banner">
+  <ul id="banner_img">
+    <li style="background-image:url(__STATIC__/index/images/banner_bg1.jpg);display:block">
+      <div class="wrapper">
+        <div class="ad_txt">
+          <h2>互联网品牌传播解决方案</h2>
+          <p>成都顶级品牌网站建设公司！<br/>
+            基于互联网的品牌行销策略的策划与执行。<br/>
+            品牌形象挖掘、梳理、包装、表现与传播。<br/>
+            辅助企业实现品牌战略目标的互联网解决方案。</p>
+        </div>
+        <div class="ad_img"> <img src="__STATIC__/index/images/1.png"  width="506" height="404" alt="" /> </div>
+      </div>
+    </li>
+    <li style="background-image:url(__STATIC__/index/images/banner_bg2.jpg);">
+      <div class="wrapper">
+        <div class="ad_txt">
+          <h2>Web应用(B/S)定制开发</h2>
+          <p>自主研发、完善的开发框架。<br/>
+            详细的需求调研及解决方案。<br/>
+            实施项目经验丰富的项目团队。</p>
+        </div>
+        <div class="ad_img"> <img src="__STATIC__/index/images/2.png" width="506" height="404" alt="" /> </div>
+      </div>
+    </li>
+    <li style="background-image:url(__STATIC__/index/images/banner_bg3.jpg);">
+      <div class="wrapper">
+        <div class="ad_txt">
+          <h2>互联网时代的整合营销</h2>
+          <p>基于互联网的品牌营销策略的定制与执行。<br/>
+            品牌形象挖掘、梳理、包装、表现与传播。<br/>
+            坐拥着最为丰富的行业经验与优势资源。</p>
+        </div>
+        <div class="ad_img"> <img src="__STATIC__/index/images/3.png" width="506" height="404" alt="" /> </div>
+      </div>
+    </li>
+    <li style="background-image:url(__STATIC__/index/images/banner_bg4.jpg);">
+      <div class="wrapper">
+        <div class="ad_txt">
+          <h2>您的网站全职管家</h2>
+          <p>成熟的监控与报警机制。<br/>
+            丰富的整合营销的能力和经验。<br/>
+            专业数据分析、开发和维护部门。</p>
+        </div>
+        <div class="ad_img"> <img src="__STATIC__/index/images/4.png"  width="506" height="404" alt="" /> </div>
+      </div>
+    </li>
+    <li style="background-image:url(__STATIC__/index/images/banner_bg5.jpg);">
+      <div class="wrapper">
+        <div class="ad_txt">
+          <h2>不可忽略的移动终端</h2>
+          <p>IOS系统、Android系统应用开发。<br/>
+            App Store、Google Play 发布。<br/>
+            APP推广服务。</p>
+        </div>
+        <div class="ad_img"> <img src="__STATIC__/index/images/5.png" width="506" height="404" alt="" /> </div>
+      </div>
+    </li>
+    <li style="background-image:url(__STATIC__/index/images/banner_bg6.jpg);">
+      <div class="wrapper">
+        <div class="ad_txt">
+          <h2>全新的学术会议体验</h2>
+          <p>工作更高效，主办方更轻松。<br/>
+            线上报名，让主办方不再为报名的事而费尽脑筋。<br/>
+            线上投稿、审稿，为主办方提高收寄、审稿效率。<br/>
+            酒店预订，会议行程更加轻松。</p>
+        </div>
+        <div class="ad_img"> <img src="__STATIC__/index/images/6.png" width="506" height="404" alt="" /> </div>
+      </div>
+    </li>
+    <li style="background-image:url(__STATIC__/index/images/banner_bg7.jpg);">
+      <div class="wrapper">
+        <div class="ad_txt">
+          <h2>医院网站管理系统(HMS)</h2>
+          <p>与大型医院密切合作。<br/>
+            诊疗挂号很轻松，检验结果实时查询，在线医患服务。<br/>
+            便捷的数据处理能力，稳定的软件基础架构。</p>
+        </div>
+        <div class="ad_img"> <img src="__STATIC__/index/images/7.png"  width="506" height="404" alt="" /> </div>
+      </div>
+    </li>
+    <li style="background-image:url(__STATIC__/index/images/banner_bg8.jpg);">
+      <div class="wrapper">
+        <div class="ad_txt">
+          <h2>智慧点亮网络(RUIFOX-LAB)</h2>
+          <p>互联网改变世界，我们改变互联网。<br/>
+            精彩前沿技术演练场。<br/>
+            新产品尝鲜体验。</p>
+        </div>
+        <div class="ad_img"> <img src="__STATIC__/index/images/8.png"  width="506" height="404" alt="" /> </div>
+      </div>
+    </li>
+  </ul>
+  <div id="banner_ctr">
+    <div id="drag_ctr"></div>
+    <ul>
+      <li class="first-item">网站建设</li>
+      <li>品牌网站建设</li>
+      <li>应用系统开发</li>
+      <li>网络整合营销</li>
+      <li>网络运维托管</li>
+      <li>手机APP开发</li>
+      <li>学术会议系统</li>
+      <li>医院网站系统</li>
+      <li>实验室</li>
+      <li class="last-item">网站设计</li>
+    </ul>
+    <div id="drag_arrow"></div>
+  </div>
+</section>
+<section id="cases">
+  <div class="cat_title wrapper">
+    <h2>企业产品<strong>PEODUCT</strong></h2>
+    <a href="{{:url('index/product/index')}}"  class="more">MORE+</a> </div>
+<ul>
+  {{volist name="products" id="vo"}}
+  <li><img src="__STATIC__/upload/{{$vo.image}}" width="240" height="152" alt="{{$vo.title}}"/>
+    <p>
+      <strong>{{:mb_substr($vo.title,0,30)}}{{if condition="mb_strlen($vo.title)>=30"}}...{{/if}}</strong>
+      <br/>
+      <a href="{{:url('index/product/read',['id' => $vo.id])}}" class="btn_blue">查看商品</a>
+    </p>
+  </li>
+  {{/volist}}
+</ul>
+</section>
+
+<section id="news">
+  <div class="cat_title wrapper">
+    <h2>新闻<strong>News</strong></h2>
+    <a href="{{:url('index/article/index')}}"  class="more">MORE+</a>
+  </div>
+  <div class="newsdata">
+    <div class="newsad"> <img src="__STATIC__/index/images/news.jpg"  alt="html5" width="320" height="485" /> </div>
+    <ul>
+      {{volist name="articles" id="vo"}}
+      <li>
+        <a href="{{:url('index/article/read',['id' => $vo.id])}}"><img src="__STATIC__/upload/{{$vo.subject_picture}}"   width="90" height="90" alt="{{$vo.subject}}"/></a>
+        <div class="newslist">
+          <a href="{{:url('index/article/read',['id' => $vo.id])}}" title="{{$vo.subject}}">{{:mb_substr($vo.subject,0,30)}}{{if condition="mb_strlen($vo.subject)>=30"}}...{{/if}}</a>
+          <span>发表时间:{{$vo.created_at}}</span>
+          <p>{{:mb_substr($vo.content,0,50)}}{{if condition="mb_strlen($vo.content)>=50"}}...{{/if}}</p>
+        </div>
+      </li>
+      {{/volist}}
+    </ul>
+  </div>
+</section>
+{{/block}}
+
+{{block name="js"}}
+
+<!--[if IE 6]>
+<script type="text/javascript" src="js/killie6.js"></script>
+<![endif]-->
+<script type="text/javascript">
+//<![CDATA[
+	//Nav Start
+	$("header>div>nav>ul>li>a").hover(function(){
+		$(this).parent().stop(false,true).animate({"background-position-x":"6px",opacity:"0.7"},{duration:"normal", easing: "easeOutElastic"});
+	},function(){
+		$(this).parent().stop(false,true).animate({"background-position-x":"10px",opacity:"1"},{duration:"normal", easing: "easeOutElastic"});
+	});
+	<!--- 首页 ---->
+	$('.ad_img,#banner_ctr,#client').pngFix();
+	$(window).scroll(function(){
+		$(this).scrollTop()>80?$("#navbg").stop(false,true).animate({opacity:"1"},"normal"):$("#navbg").stop(false,true).animate({opacity:"0.8"},"normal");
+	});
+	//Banner Start
+	var curIndex=0;
+	var time=800;
+	var slideTime=5000;
+	var adTxt=$("#banner_img>li>div>.ad_txt");
+	var adImg=$("#banner_img>li>div>.ad_img");
+	var int=setInterval("autoSlide()",slideTime);
+
+	$("#banner_ctr>ul>li[class!='first-item'][class!='last-item']").click(function(){
+		show($(this).index("#banner_ctr>ul>li[class!='first-item'][class!='last-item']"));
+		window.clearInterval(int);
+		int=setInterval("autoSlide()",slideTime);
+	});
+	
+	function autoSlide(){
+		curIndex+1>=$("#banner_img>li").size()?curIndex=-1:false;
+		show(curIndex+1);
+	}
+	function show(index){
+		$.easing.def="easeOutQuad";
+		$("#drag_ctr,#drag_arrow").stop(false,true).animate({left:index*115+20},300);
+		$("#banner_img>li").eq(curIndex).stop(false,true).fadeOut(time);
+		adTxt.eq(curIndex).stop(false,true).animate({top:"340px"},time);
+		adImg.eq(curIndex).stop(false,true).animate({right:"120px"},time);
+		setTimeout(function(){
+			$("#banner_img>li").eq(index).stop(false,true).fadeIn(time);
+			adTxt.eq(index).children("p").css({paddingTop:"50px",paddingBottom:"50px"}).stop(false,true).animate({paddingTop:"0",paddingBottom:"0"},time);
+			adTxt.eq(index).css({top:"0",opacity:"0"}).stop(false,true).animate({top:"170px",opacity:"1"},time);
+			adImg.eq(index).css({right:"-50px",opacity:"0"}).stop(false,true).animate({right:"10px",opacity:"1"},time);
+		},200)
+		curIndex=index;
+	}
+	//Banner End
+	//Cases Start
+	if($.support.transition){
+		$("#cases>ul>li").hover(function(){
+			$("img",this).stop(false,true).transition({
+				perspective: '300px',
+				rotateY: '180deg',
+				opacity: '0'
+			});
+			$("p",this).css({display:'block',opacity:'0',rotateY: '-180deg'}).stop(false,true).transition({
+				perspective: '300px',
+				rotateY: '0deg',
+				opacity: '1'
+			});
+		},function(){
+			$("img",this).show().stop(false,true).transition({
+				perspective: '300px',
+				rotateY: '0deg',
+				opacity: '1'
+			});
+			$("p",this).stop(false,true).transition({
+				perspective: '300px',
+				rotateY: '180deg',
+				opacity: '0'
+			});
+		});
+	}else{
+		$("#cases>ul>li").hover(function(){
+			$("img",this).stop(false,true).slideUp("fast");
+			$("p",this).stop(false,true).slideDown("fast");
+		},function(){
+			$("img",this).stop(false,true).slideDown("fast");
+			$("p",this).stop(false,true).slideUp("fast");
+		});
+	}
+	$("#cases>ul>li>img").lazyload({effect:"fadeIn",failurelimit:10});
+						$("#gotop").click(function(){$('body,html').animate({scrollTop:0},500);})
+	
+//]]>
+</script>
+{{/block}}

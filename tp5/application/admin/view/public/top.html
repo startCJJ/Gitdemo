@@ -1,0 +1,14 @@
+        <!--头部-->
+        <div class="main-layout-header">
+          <div class="menu-btn" id="hideBtn">
+            <a href="javascript:;">
+              <span class="iconfont">&#xe60e;</span>
+            </a>
+          </div>
+          <ul class="layui-nav" lay-filter="rightNav">
+            <li class="layui-nav-item">
+              <a href="javascript:;" data-url="{{:url('admin/admin/info')}}" data-id='20' data-text="个人信息">{{:session('admin.adminname')}}</a>
+            </li>
+            <li class="layui-nav-item"><a href="{{:url('admin/admin/logout')}}">退出</a></li>
+          </ul>
+        </div>

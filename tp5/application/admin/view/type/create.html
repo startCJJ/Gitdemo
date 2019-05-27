@@ -1,0 +1,49 @@
+{{extend name="public/contentBase"}}
+{{block name="content"}}
+		<div class="wrap-container clearfix">
+				<form action="{{:url('admin/type/save')}}" method="post" class="layui-form column-content-detail">
+					<div class="layui-tab">
+						<ul class="layui-tab-title">
+							<li class="layui-this">添加商品分类</li>
+						</ul>
+						<div class="layui-tab-content">
+							<div class="layui-tab-item layui-show">
+								<div class="layui-form-item">
+									<label class="layui-form-label">分类名称：</label>
+									<div class="layui-input-block">
+										<input type="text" name="title" required lay-verify="required" placeholder="请输入分类名称" autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">父类：</label>
+									<div class="layui-input-block">
+										<select name="pid" lay-verify="required">
+											<option value="0">请选择父类</option>
+        									{{volist name="ts" id="vo"}}
+											<option value="{{$vo.id}}">{{:str_repeat('--', $vo.level)}} {{$vo.title}}</option>
+        									{{/volist}}
+										</select>
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">标签：</label>
+									<div class="layui-input-block">
+										<input type="radio" name="online" value="1" title="上线" checked>
+										<input type="radio" name="online" value="0" title="下线">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="layui-form-item" style="padding-left: 10px;">
+						<div class="layui-input-block">
+							<button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo">立即提交</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+				</form>
+		</div>
+{{/block}}
+{{block name="js"}}
+{{load file="__STATIC__/admin/js/common.js"}}
+{{/block}}

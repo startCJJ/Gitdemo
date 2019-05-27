@@ -1,0 +1,140 @@
+{{extend name="public/subtemplate"}}
+{{block name="content"}}
+<div class="col-md-9">
+  <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">购物车</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-bordered table-condensed table-hover table-striped">
+                <tr>
+                    <td style="vertical-align: middle;"><input type="checkbox" name="" id="checkAll"></td>
+                    <td style="vertical-align: middle;">商品</td>
+                    <td style="vertical-align: middle;">单价</td>
+                    <td style="vertical-align: middle;">数量</td>
+                    <td style="vertical-align: middle;">总价</td>
+                    <td style="vertical-align: middle;">操作</td>
+                </tr>
+                {{volist name="data" id="vo"}}
+                <tr>
+                    <td style="vertical-align: middle;"><input type="checkbox" name="pids[]" value="{{$vo.product_id}}"></td>
+                    <td style="vertical-align: middle;"><a href="{{:url('index/product/read',['id'=>$vo.product_id])}}"><img src="__STATIC__/upload/{{$vo.product.image}}" height="50px" width="50px">{{$vo.product.title}}</a></td>
+                    <td style="vertical-align: middle;">{{$vo.product.price}}</td>
+                    <td style="vertical-align: middle;"><span id="productNum_{{$vo.product_id}}">{{$vo.number}}</span></td>
+                    <td style="vertical-align: middle;"><span id="productTotal_{{$vo.product_id}}">{{:round($vo.product.price * $vo.number,2)}}</span></td>
+                    <td style="vertical-align: middle;">
+                        <a href="{{:url('index/carts/delete',['id'=>$vo.id])}}" class="btn btn-danger" onclick="return confirm('是否删除')">删除</a>
+                    </td>
+                </tr>
+                {{/volist}}
+            </table>
+            <span class="text-danger" style="font-size: 30px;font-weight: bold;">
+                订单金额: <span id="orderAmout">0.00</span>元
+            </span>
+            <span id="orderConfirm" class="btn btn-primary btn-lg pull-right">去结算</span>
+    </div>
+  </div>
+</div>
+{{/block}}
+{{block name="js"}}
+<script type="text/javascript">
+//<![CDATA[
+  //Nav Start
+  $("header>div>nav>ul>li>a").hover(function(){
+    $(this).parent().stop(false,true).animate({"background-position-x":"6px",opacity:"0.7"},{duration:"normal", easing: "easeOutElastic"});
+  },function(){
+    $(this).parent().stop(false,true).animate({"background-position-x":"10px",opacity:"1"},{duration:"normal", easing: "easeOutElastic"});
+  });
+  
+  $("#caseslist>.cases>li").live({mouseenter:function(){
+    $("p",this).stop(false,true).slideDown("normal","easeOutQuad");
+  },mouseleave:function(){
+    $("p",this).stop(false,true).slideUp("normal","easeOutQuad");
+  }});
+
+  $("#gotop").click(function(){$('body,html').animate({scrollTop:0},500);})
+
+</script>
+<script type="text/javascript">
+if (window.name != 'noReload') {
+    window.name = 'noReload';
+    location.reload();
+}else{
+    window.name = "";
+}
+
+$('#checkAll').click(function(){
+    var total = 0.00;
+    var status = $(this).prop('checked');
+
+    $('[name="pids[]"]').prop('checked',status);
+
+    $('[name="pids[]"]').each(function(i,e){
+        if (status) {
+            $(this).parent().parent().addClass('success');
+
+            var pid = $(this).val();
+            var thisTotal = parseFloat($('#productTotal_'+pid).text());
+            total +=thisTotal;
+            $('#orderAmout').text(total.toFixed(2));
+        }else{
+            $(this).parent().parent().removeClass('success');
+            $('#orderAmout').text(total.toFixed(2));
+        }
+    });
+});
+
+$('[name="pids[]"]').click(function(){
+    var count = 0;
+
+    var total = parseFloat($('#orderAmout').text());
+
+    var status = $(this).prop('checked');
+    if (status) {
+        $(this).parent().parent().addClass('success');
+        var pid = $(this).val();
+        var thisTotal = parseFloat($('#productTotal_'+pid).text());
+        total +=thisTotal;
+        $('#orderAmout').text(total.toFixed(2));
+    }else{
+        $(this).parent().parent().removeClass('success');
+        var pid = $(this).val();
+        var thisTotal = parseFloat($('#productTotal_'+pid).text());
+        total -=thisTotal;
+        $('#orderAmout').text(total.toFixed(2));
+    }
+
+    $('[name="pids[]"]').each(function(){
+        if($(this).prop('checked')){
+            count++;
+        }
+    });
+
+    if ($('[name="pids[]"]').length == count) {
+        $('#checkAll').prop('checked',true);
+    }else{
+        $('#checkAll').prop('checked',false);
+    }
+});
+
+$('#orderConfirm').click(function(){
+
+    var orderAmout = parseFloat($('#orderAmout').text());
+
+    if (orderAmout > 0) {
+        var pids = "";
+        var nums = "";
+        $('[name="pids[]"]').each(function(i,e){
+            if ($(this).prop('checked')) {
+                pids += $(this).val() + "_";
+                nums += $('#productNum_'+$(this).val()).text() + "_";
+            }
+        });
+        location.href = "{{:url('index/orders/confirm')}}?pids=" + pids.replace( /_$/ , "") + "&nums=" + nums.replace( /_$/ , "") + "&mode="+1;
+    }else{
+        window.alert('请先选择商品');
+    }
+});
+
+</script>
+{{/block}}

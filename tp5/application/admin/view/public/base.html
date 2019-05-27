@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>全能后台管理</title>
+    {{load file="__STATIC__/admin/layui/css/layui.css"}}
+    {{load file="__STATIC__/admin/css/admin.css"}}
+    {{block name="css"}}{{/block}}
+  </head>
+  <body>
+    <div class="main-layout" id='main-layout'>
+      {{include file="public/left"}}
+      <div class="main-layout-container">
+        {{include file="public/top"}}
+        {{block name="content"}}{{/block}}
+      </div>
+      <!--遮罩-->
+      <div class="main-mask">
+        
+      </div>
+    </div>
+    <script type="text/javascript">
+      var scope={
+        link:'./welcome.html'
+      }
+    </script>
+    {{load file="__STATIC__/admin/layui/layui.js"}}
+    {{load file="__STATIC__/admin/js/common.js"}}
+    {{load file="__STATIC__/admin/js/main.js"}}
+
+    {{block name="js"}}{{/block}}
+    
+  </body>
+</html>

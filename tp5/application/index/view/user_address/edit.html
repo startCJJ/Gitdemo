@@ -1,0 +1,249 @@
+{{extend name="public/subtemplate"}}
+{{block name="content"}}
+<div class="col-md-9">
+  <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">新增收货地址</h3>
+        </div>
+        <form action="{{:url('index/userAddress/doEdit',['id' => $arr.id])}}" method="post" class="form-horizontal">
+
+          <div class="panel-body">
+
+            <div class="form-group">
+                <div class="col-md-2">
+                  <label class="control-label">收货人姓名</label>
+                </div>
+                <div class="col-md-7">
+                  <input type="text" name="username" value="{{$arr.username}}" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-2">
+                  <label class="control-label">收货人手机</label>
+                </div>
+                <div class="col-md-7">
+                  <input type="text" name="phone" value="{{$arr.phone}}" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-2">
+                  <label class="control-label">所在地</label>
+                </div>
+                <div class="col-md-7" style="padding: 0;">
+                  <div class="col-md-4">
+                    <select name="province_id" class="form-control" id="p">
+                      <option value="">省份</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <select name="city_id" class="form-control" id="c">
+                      <option value="">城市</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <select name="district_id" class="form-control" id="d">
+                      <option value="">区县</option>
+                    </select>
+                  </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-2">
+                  <label class="control-label">详细地址</label>
+                </div>
+                <div class="col-md-7">
+                  <input type="text" name="address" value="{{$arr.address}}" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-2">
+                  <label class="control-label">邮编</label>
+                </div>
+                <div class="col-md-7">
+                  <input type="text" name="zipcode" value="{{$arr.zipcode}}" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-7">
+                  <input type="submit" value="添加" class="btn btn-primary">
+                <input type="reset" value="取消" class="btn btn-default">
+                </div>
+            </div>
+
+          </div>
+
+        </form>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">收货地址列表</h3>
+        </div>
+        <div class="panel-body" style="padding: 0;">
+          <table class="table table-bordered table-condensed table-hover table-striped">
+        <tr>
+          <td>收货人</td>
+          <td>收货地址</td>
+          <td>邮编</td>
+          <td>电话/手机</td>
+          <td>是否默认</td>
+          <td>操作</td>
+        </tr>
+        {{volist name="data" id="vo"}}
+        <tr>
+          <td>{{$vo.username}}</td>
+          <td>{{$vo.province.name}} {{$vo.city.name}} {{$vo.district.name}} {{$vo.address}}</td>
+          <td>{{$vo.zipcode}}</td>
+          <td>{{$vo.phone}}</td>
+          <td>{{$vo.status}}</td>
+          <td>
+            <a href="{{if condition="$vo->getData('status') == 0"}}{{:url('index/userAddress/modify' , ['id' => $vo.id])}} {{/if}}" class="btn {{if condition="$vo->getData('status') == 1"}} btn-success {{else /}} btn-info {{/if}}">{{if condition="$vo->getData('status') == 1"}} 默认地址 {{else /}} 设为默认 {{/if}}</a>
+            <a href="{{:url('index/userAddress/edit' , ['id' => $vo.id])}}" class="btn btn-primary">编辑</a>
+            <a href="{{:url('index/userAddress/delete' , ['id' => $vo.id])}}" class="btn btn-danger">删除</a>
+              </td>
+        </tr>
+        {{/volist}}
+          </table>
+        </div>
+    </div>
+</div>
+{{/block}}
+{{block name="js"}}
+<script type="text/javascript">
+//<![CDATA[
+  //Nav Start
+  $("header>div>nav>ul>li>a").hover(function(){
+    $(this).parent().stop(false,true).animate({"background-position-x":"6px",opacity:"0.7"},{duration:"normal", easing: "easeOutElastic"});
+  },function(){
+    $(this).parent().stop(false,true).animate({"background-position-x":"10px",opacity:"1"},{duration:"normal", easing: "easeOutElastic"});
+  });
+  
+  $("#caseslist>.cases>li").live({mouseenter:function(){
+    $("p",this).stop(false,true).slideDown("normal","easeOutQuad");
+  },mouseleave:function(){
+    $("p",this).stop(false,true).slideUp("normal","easeOutQuad");
+  }});
+
+  $("#gotop").click(function(){$('body,html').animate({scrollTop:0},500);})
+</script>
+{{load file="__JS__/jquery-3.3.1.js"}}
+<script type="text/javascript">
+// 就绪函数(页面渲染完成)
+$(function(){
+    // 获取省份信息
+    $.ajax({
+      type: 'get',
+      url: "{{:url('index/region/region')}}",
+      data: {parentid:0},
+      success: function(res){
+        // res是json
+        // 将json转成js变量
+        var ps = JSON.parse(res);
+        // 遍历省份信息数组
+        $.each(ps, function(i,p){
+          // console.log(p);
+          if (p.id == {{$arr.province_id}}) {
+          $('#p').append("<option value='"+p.id+"'"+' selected'+">"+p.firstletter+" "+p.name+"</option>");
+                }else{
+                    $('#p').append("<option value='"+p.id+"'>"+p.firstletter+" "+p.name+"</option>");
+                }
+        });
+
+            $.ajax({
+                type: 'get',
+                url: "{{:url('index/region/region')}}",
+                data: {parentid: $('#p').val()},
+                success: function(res){
+                    // 清空历史记录
+                    $('#c').empty().prepend('<option value="">城市</option>');
+                    // 清空区县下拉框
+                    $('#d').find('[value!=""]').remove();
+                    // 城市数组
+                    var cs = JSON.parse(res);
+                    $.each(cs,function(i,c){
+                        // console.log(p);
+                        // 内部之后添加
+                        if (c.id == {{$arr.city_id}}) {
+                            $('#c').append("<option value='"+c.id+"'"+' selected'+">"+c.firstletter+" "+c.name+"</option>");
+                        }else{
+                            $('#c').append("<option value='"+c.id+"'>"+c.firstletter+" "+c.name+"</option>");
+                        }
+                    });
+
+                    $.ajax({
+                        type: 'get',
+                        url: "{{:url('index/region/region')}}",
+                        data: {parentid: $('#c').val()},
+                        success: function(res){
+                            // 请求区县下的历史记录
+                            // $('#d').children().first().nextAll().remove();
+                            $('#d').find('[value!=""]').remove();
+                            // 区县数组
+                            var ds = JSON.parse(res);
+                            $.each(ds,function(i,d){
+                                if (d.id == {{$arr.district_id}}) {
+                                    $('#d').append("<option value='"+d.id+"'"+' selected'+">"+d.firstletter+" "+d.name+"</option>");
+                                }else{
+                                    $('#d').append("<option value='"+d.id+"'>"+d.firstletter+" "+d.name+"</option>");
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+      }
+    });
+
+    // 点选省份, 获取城市信息
+    $('#p').change(function(){
+      // 异步获取城市信息
+      $.ajax({
+        type: 'get',
+        url: "{{:url('index/region/region')}}",
+        data: {parentid: $(this).val()},
+        success: function(res){
+          // 清空历史记录
+          $('#c').empty().prepend('<option value="">城市</option>');
+          // 清空区县下拉框
+          $('#d').find('[value!=""]').remove();
+          // 城市数组
+          var cs = JSON.parse(res);
+          $.each(cs,function(i,c){
+            // console.log(p);
+            // 内部之后添加
+            $('#c').append("<option value='"+c.id+"'>"+c.firstletter+" "+c.name+"</option>");
+          });
+        }
+        });
+    });
+
+    // 点选城市, 获取区县信息
+    $('#c').change(function(){
+      // 异步获取区县信息
+      $.ajax({
+        type: 'get',
+        url: "{{:url('index/region/region')}}",
+        data: {parentid: $(this).val()},
+        success: function(res){
+          // 请求区县下的历史记录
+          // $('#d').children().first().nextAll().remove();
+          $('#d').find('[value!=""]').remove();
+          // 区县数组
+          var ds = JSON.parse(res);
+          $.each(ds,function(i,d){
+            $('#d').append("<option value='"+d.id+"'>"+d.firstletter+" "+d.name+"</option>");
+          });
+        }
+        });
+    });
+
+});
+</script>
+{{/block}}
